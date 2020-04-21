@@ -15,6 +15,9 @@ export abstract class NodeApplication {
     //             defaults to the root of the server
     constructor(private port: number, rootPath: string='/') {        
         this.app = express();
+        this.OnBeforeInit();
+        this.initCors();
+        this.initBodyParser();
         this.routes = this.SetupRoutes().expressRouter;
         this.app.use(rootPath, this.routes);
     }
@@ -28,12 +31,6 @@ export abstract class NodeApplication {
     OnBeforeInit(): void {};
     //OnSetupComplete: Lifecycle hook after node server started and listening
     OnSetupComplete(port: number): void {}
-    //setupServer: Initialize default properties for the site. Override to prevent
-    //   or change this behavior
-    setupServer(): void {
-        this.initCors();
-        this.initBodyParser();
-    }
 
     //initBodyParser: Initialize default options for the body parser
     //  override to prevent or change behavior
@@ -56,8 +53,6 @@ export abstract class NodeApplication {
 
     //startServer: Called to start the node.js server
     startServer(): void {
-        this.OnBeforeInit();
-        this.setupServer();
         this.app.listen(this.port, ()=>this.OnSetupComplete(this.port));
     }
 }

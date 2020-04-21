@@ -17,6 +17,9 @@ var NodeApplication = /** @class */ (function () {
         if (rootPath === void 0) { rootPath = '/'; }
         this.port = port;
         this.app = express_1.default();
+        this.OnBeforeInit();
+        this.initCors();
+        this.initBodyParser();
         this.routes = this.SetupRoutes().expressRouter;
         this.app.use(rootPath, this.routes);
     }
@@ -25,12 +28,6 @@ var NodeApplication = /** @class */ (function () {
     ;
     //OnSetupComplete: Lifecycle hook after node server started and listening
     NodeApplication.prototype.OnSetupComplete = function (port) { };
-    //setupServer: Initialize default properties for the site. Override to prevent
-    //   or change this behavior
-    NodeApplication.prototype.setupServer = function () {
-        this.initCors();
-        this.initBodyParser();
-    };
     //initBodyParser: Initialize default options for the body parser
     //  override to prevent or change behavior
     NodeApplication.prototype.initBodyParser = function () {
@@ -51,8 +48,6 @@ var NodeApplication = /** @class */ (function () {
     //startServer: Called to start the node.js server
     NodeApplication.prototype.startServer = function () {
         var _this = this;
-        this.OnBeforeInit();
-        this.setupServer();
         this.app.listen(this.port, function () { return _this.OnSetupComplete(_this.port); });
     };
     return NodeApplication;
