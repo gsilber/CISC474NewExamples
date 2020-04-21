@@ -15,6 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var AppRouter_1 = require("./common/AppRouter");
 var securityrouter_1 = require("./security/securityrouter");
+var projectsRouter_1 = require("./projects/projectsRouter");
 var MainRouter = /** @class */ (function (_super) {
     __extends(MainRouter, _super);
     function MainRouter() {
@@ -22,6 +23,7 @@ var MainRouter = /** @class */ (function (_super) {
     }
     MainRouter.prototype.setupRoutes = function () {
         this.addRouter('/security', new securityrouter_1.SecurityRouter());
+        this.addRouter('/projects', new projectsRouter_1.ProjectsRouter());
     };
     return MainRouter;
 }(AppRouter_1.AppRouter));
