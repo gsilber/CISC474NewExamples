@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 
 export class UserModel{
+    id?='';
     email = '';
     private _password='';
 

@@ -31,11 +31,18 @@ export class SecurityController {
     }
     authorize(req: express.Request, res: express.Response, next: express.NextFunction) {
         //validate that req.authUser exists, if so, return the user's email address.
-        res.send({ fn: 'authorize', status: 'success' });
+        console.log();
+        res.send({ fn: 'authorize', status: 'success', data:{email: req.body.authUser.email} }).end();
     }
     changePwd(req: express.Request, res: express.Response, next: express.NextFunction) {
-        //validate that req.authUser exists, if so, update password object in database
-        res.send({ fn: 'changePwd', status: 'success' });
+        if (!req.body.password) res.status(400).send({ fn: 'changePwd', status: 'failure' }).end();
+        const user: UserModel = new UserModel(req.body.authUser.email, req.body.password);
+        SecurityController.db.updateRecord(SecurityController.usersTable, user.toObject()).then((result:Boolean)=>{
+            if (result)
+                res.send({ fn: 'changePwd', status: 'success' }).end();
+            else 
+                res.status(400).send({ fn: 'changePwd', status: 'failure' }).end();
+        }).catch(err=>res.send({ fn: 'changePwd', status: 'failure', data:err }).end());
     }
 
 }
