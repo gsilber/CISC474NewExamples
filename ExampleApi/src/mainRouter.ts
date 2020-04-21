@@ -1,7 +1,7 @@
-import { ApiRouter } from "./common/ApiRouter";
+import { AppRouter } from "./common/AppRouter";
 import { SecurityRouter } from "./security/securityrouter";
 
-export class MainRouter extends ApiRouter{
+export class MainRouter extends AppRouter{
     constructor(){super();}
 
     setupRoutes(): void {

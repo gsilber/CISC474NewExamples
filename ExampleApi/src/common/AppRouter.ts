@@ -1,6 +1,6 @@
 import express from 'express';
 
-export abstract class ApiRouter{
+export abstract class AppRouter{
     protected router: express.Router;
     constructor(){
         this.router=express.Router();    
