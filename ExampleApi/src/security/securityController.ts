@@ -11,7 +11,6 @@ export class SecurityController {
     public login(req: express.Request, res: express.Response, next: express.NextFunction) {
         SecurityController.db.getOneRecord(SecurityController.usersTable, { email: req.body.email })
             .then((userRecord: any) => {
-
                 if (!userRecord) return res.sendStatus(401).end();
                 const usr: UserModel = UserModel.fromObject(userRecord);
                 if (!usr.validatePassword(req.body.password)) return res.sendStatus(401).end();
@@ -31,9 +30,11 @@ export class SecurityController {
             }).catch((reason) => res.sendStatus(500).end());
     }
     authorize(req: express.Request, res: express.Response, next: express.NextFunction) {
+        //validate that req.authUser exists, if so, return the user's email address.
         res.send({ fn: 'authorize', status: 'success' });
     }
     changePwd(req: express.Request, res: express.Response, next: express.NextFunction) {
+        //validate that req.authUser exists, if so, update password object in database
         res.send({ fn: 'changePwd', status: 'success' });
     }
 
