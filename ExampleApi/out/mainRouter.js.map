@@ -1,0 +1,1 @@
+{"version":3,"file":"mainRouter.js","sourceRoot":"","sources":["../src/mainRouter.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;AAAA,gDAA+C;AAC/C,4DAA2D;AAE3D;IAAgC,8BAAS;IACrC;eAAc,iBAAO;IAAC,CAAC;IAEvB,gCAAW,GAAX;QACI,IAAI,CAAC,MAAM,CAAC,GAAG,CAAC,WAAW,EAAC,IAAI,+BAAc,EAAE,CAAC,SAAS,EAAE,CAAC,CAAC;IAClE,CAAC;IAEL,iBAAC;AAAD,CAAC,AAPD,CAAgC,qBAAS,GAOxC;AAPY,gCAAU"}
