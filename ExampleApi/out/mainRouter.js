@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ApiRouter_1 = require("./common/ApiRouter");
+var AppRouter_1 = require("./common/AppRouter");
 var securityrouter_1 = require("./security/securityrouter");
 var MainRouter = /** @class */ (function (_super) {
     __extends(MainRouter, _super);
@@ -21,9 +21,9 @@ var MainRouter = /** @class */ (function (_super) {
         return _super.call(this) || this;
     }
     MainRouter.prototype.setupRoutes = function () {
-        this.router.use('/security', new securityrouter_1.SecurityRouter().getRouter());
+        this.addRouter('/security', new securityrouter_1.SecurityRouter());
     };
     return MainRouter;
-}(ApiRouter_1.ApiRouter));
+}(AppRouter_1.AppRouter));
 exports.MainRouter = MainRouter;
 //# sourceMappingURL=mainRouter.js.map

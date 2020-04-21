@@ -1,19 +1,21 @@
 import express from 'express'
 import { MainRouter } from './mainRouter';
+import { NodeApplication } from './common/NodeApplication';
+import { AppRouter } from './common/AppRouter';
 
-class Application {
-    app: express.Application;
+class Application extends NodeApplication {
+
+    constructor(port: number) {
+        super(port,'/api');
+    }
     
-    constructor(private port: number) {
-        this.app = express();
+    OnSetupComplete(port: number): void {
+        console.log('ExampleApi Listening on port ' + port.toString());
     }
 
-    startServer() {
-        //configure body parser
-        //configure CORS
-        this.app.use('/api',new MainRouter().getRouter());
-        this.app.listen(this.port, ()=>console.log('ExampleApi Listening on port '+this.port.toString()));
+    SetupRoutes(): AppRouter {
+        return new MainRouter();
     }
 }
-const port=process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 new Application(+port).startServer();

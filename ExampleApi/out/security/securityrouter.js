@@ -13,15 +13,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ApiRouter_1 = require("../common/ApiRouter");
+var AppRouter_1 = require("../common/AppRouter");
 var SecurityRouter = /** @class */ (function (_super) {
     __extends(SecurityRouter, _super);
     function SecurityRouter() {
         return _super.call(this) || this;
     }
     SecurityRouter.prototype.setupRoutes = function () {
+        this.expressRouter.get('/test', function (req, res, next) { return res.send({ status: 'ok' }); });
     };
     return SecurityRouter;
-}(ApiRouter_1.ApiRouter));
+}(AppRouter_1.AppRouter));
 exports.SecurityRouter = SecurityRouter;
 //# sourceMappingURL=securityrouter.js.map
