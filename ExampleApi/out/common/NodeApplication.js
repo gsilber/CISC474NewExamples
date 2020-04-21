@@ -5,7 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
+/* This is the base class for a Node Express application, it provides lifecycle hooks
+    for various stages of application initialization and an abstract method
+    for attaching the endpoint routes to the appliation */
 var NodeApplication = /** @class */ (function () {
+    //NodeApplication:
+    //  port: number - The port for the node server to listen on
+    //  rootPath: string (Optional) - The path of the root route, 
+    //             defaults to the root of the server
     function NodeApplication(port, rootPath) {
         if (rootPath === void 0) { rootPath = '/'; }
         this.port = port;
@@ -13,17 +20,25 @@ var NodeApplication = /** @class */ (function () {
         this.routes = this.SetupRoutes().expressRouter;
         this.app.use(rootPath, this.routes);
     }
+    //OnBeforeInit: Lifecycle hook before initialization of the application
     NodeApplication.prototype.OnBeforeInit = function () { };
     ;
+    //OnSetupComplete: Lifecycle hook after node server started and listening
     NodeApplication.prototype.OnSetupComplete = function (port) { };
+    //setupServer: Initialize default properties for the site. Override to prevent
+    //   or change this behavior
     NodeApplication.prototype.setupServer = function () {
         this.initCors();
         this.initBodyParser();
     };
+    //initBodyParser: Initialize default options for the body parser
+    //  override to prevent or change behavior
     NodeApplication.prototype.initBodyParser = function () {
         this.app.use(body_parser_1.default.urlencoded({ extended: false }));
         this.app.use(body_parser_1.default.json());
     };
+    //initCors: Initialize default options for CORS allowing open access
+    //      Override this method to prvent or change behavior
     NodeApplication.prototype.initCors = function () {
         this.app.use(function (req, res, next) {
             res.header("Access-Control-Allow-Origin", "*");
@@ -33,6 +48,7 @@ var NodeApplication = /** @class */ (function () {
             next();
         });
     };
+    //startServer: Called to start the node.js server
     NodeApplication.prototype.startServer = function () {
         var _this = this;
         this.OnBeforeInit();
