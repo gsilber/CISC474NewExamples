@@ -37,7 +37,7 @@ export class SecurityController {
     changePwd(req: express.Request, res: express.Response, next: express.NextFunction) {
         if (!req.body.password) res.status(400).send({ fn: 'changePwd', status: 'failure' }).end();
         const user: UserModel = new UserModel(req.body.authUser.email, req.body.password);
-        SecurityController.db.updateRecord(SecurityController.usersTable, user.toObject()).then((result:Boolean)=>{
+        SecurityController.db.updateRecord(SecurityController.usersTable, {email: user.email},{ $set: {password: user.password }}).then((result:Boolean)=>{
             if (result)
                 res.send({ fn: 'changePwd', status: 'success' }).end();
             else 
