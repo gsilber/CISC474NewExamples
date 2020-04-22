@@ -2,8 +2,12 @@ import express, { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 import { Config } from '../config';
 
+//Class represeneting verification function for JWT.  The static member can be used to return a method that validates the token
+
 export class SecurityMiddleware {
 
+    //Returns a method that validates a bearer token, on success, populates authUser in the body with the user information from the token,
+    //then calls the next function in the chain (the controller).  On failure to authenticate, halts execution and sends error response
     static get RequireAuth(): RequestHandler {
         return (req: express.Request, res: express.Response, next: express.NextFunction) => {
             let token = req.headers["x-access-token"] || req.headers["authorization"];

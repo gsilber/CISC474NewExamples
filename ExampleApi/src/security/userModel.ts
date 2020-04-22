@@ -1,10 +1,12 @@
 import bcrypt from 'bcrypt';
 
+//represents a user in the system
 export class UserModel{
     id?='';
     email = '';
     private _password='';
 
+    //when user password is set through here, it is stored encrypted
     set password(val:string){
         this._password=UserModel.encryptString(val);
     }
@@ -32,6 +34,8 @@ export class UserModel{
         if (this.password==='*') {return false;}
         return bcrypt.compareSync(password,this.password);
     }
+    
+    //encrypt a string using the bcrypt library
     static encryptString(inval:string):string{
         try {
             var salt  = bcrypt.genSaltSync(10);
