@@ -1,4 +1,4 @@
-import { MongoClient, FilterQuery } from 'mongodb';
+import { MongoClient, FilterQuery, ObjectID } from 'mongodb';
 /*Wrapper class for accessing Mongo Databse*/
 
 export class Database {
@@ -8,6 +8,10 @@ export class Database {
     //dbName: the name of the database to access
     constructor(private url: string, private dbName: string) { }
 
+    //converts a string to a mongodb object id
+    static stringToId(id:string):ObjectID{
+        return new ObjectID(id);
+    }
     //addRecord
     // collection: the name of the collection to add the record to.
     // object: a javascript object to store in the collection
