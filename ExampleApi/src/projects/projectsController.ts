@@ -53,7 +53,7 @@ export class ProjectsController{
     deleteProject(req:express.Request,res:express.Response){
         const id=Database.stringToId(req.params.id);
         ProjectsController.db.deleteRecord(ProjectsController.projectsTable,{_id:id})
-        .then((results)=>res.send({ fn: 'deleteProject', status: 'success' }).end())
+        .then((results)=>results?(res.send({ fn: 'deleteProject', status: 'success' })):(res.send({ fn: 'deleteProject', status: 'failure', data: 'Not found' })).end())
         .catch((reason) => res.status(500).send(reason).end());
 }
 

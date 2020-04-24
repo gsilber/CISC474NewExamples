@@ -108,7 +108,7 @@ export class Database {
                 dbo.collection(collection).deleteOne(query, (err, result) => {
                     if (err) reject(err);
                     db.close();
-                    resolve(true);
+                    resolve(result.deletedCount==1);
                 });
             });
         });
