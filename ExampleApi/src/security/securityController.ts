@@ -34,7 +34,6 @@ export class SecurityController {
                 if (userRecord) return res.status(400).send({ fn: 'register', status: 'failure', data: 'User Exits' }).end();
                 SecurityController.db.addRecord(SecurityController.usersTable, user.toObject()).then((result: boolean) => res.send({ fn: 'register', status: 'success' }).end())
                     .catch((reason) => res.sendStatus(500).end());
-                res.send({ fn: 'register', status: 'success' }).end();
             }).catch((reason) => res.sendStatus(500).end());
     }
     //authorize - GET
