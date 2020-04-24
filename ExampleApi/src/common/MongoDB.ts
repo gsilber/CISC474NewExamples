@@ -47,7 +47,7 @@ export class Database {
                 dbo.collection(collection).updateOne(filter,update,(err, result) => {
                     if (err) reject(err);
                     db.close();
-                    resolve(true);
+                    resolve(result.matchedCount==1);
                 });
             });
                 

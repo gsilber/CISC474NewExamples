@@ -40,12 +40,11 @@ export class ProjectsController{
     //updates the project in the database with id :id
     updateProject(req:express.Request,res:express.Response){
         const id=Database.stringToId(req.params.id);
-        ProjectsController.db.updateRecord(ProjectsController.projectsTable, {_id:id},{ $set: req.body}).then((result:Boolean)=>{
-            if (result)
-                res.send({ fn: 'updateProject', status: 'success' }).end();
-            else 
-                res.status(400).send({ fn: 'updateProject', status: 'failure' }).end();
-        }).catch(err=>res.send({ fn: 'updateProject', status: 'failure', data:err }).end());
+        const data=req.body;
+        delete data.authUser;
+        ProjectsController.db.updateRecord(ProjectsController.projectsTable, {_id:id},{ $set: req.body})
+            .then((results)=>results?(res.send({ fn: 'updateProject', status: 'success' })):(res.send({ fn: 'updateProject', status: 'failure', data: 'Not found' })).end())
+            .catch(err=>res.send({ fn: 'updateProject', status: 'failure', data:err }).end());
 
     }
     //deleteProject
@@ -53,8 +52,8 @@ export class ProjectsController{
     deleteProject(req:express.Request,res:express.Response){
         const id=Database.stringToId(req.params.id);
         ProjectsController.db.deleteRecord(ProjectsController.projectsTable,{_id:id})
-        .then((results)=>results?(res.send({ fn: 'deleteProject', status: 'success' })):(res.send({ fn: 'deleteProject', status: 'failure', data: 'Not found' })).end())
-        .catch((reason) => res.status(500).send(reason).end());
+            .then((results)=>results?(res.send({ fn: 'deleteProject', status: 'success' })):(res.send({ fn: 'deleteProject', status: 'failure', data: 'Not found' })).end())
+            .catch((reason) => res.status(500).send(reason).end());
 }
 
 }
