@@ -39,12 +39,22 @@ export class ProjectsController{
     //updateProject
     //updates the project in the database with id :id
     updateProject(req:express.Request,res:express.Response){
-        res.send({ fn: 'updateProjects', status: 'success' }).end();
+        const id=Database.stringToId(req.params.id);
+        ProjectsController.db.updateRecord(ProjectsController.projectsTable, {_id:id},{ $set: req.body}).then((result:Boolean)=>{
+            if (result)
+                res.send({ fn: 'updateProject', status: 'success' }).end();
+            else 
+                res.status(400).send({ fn: 'updateProject', status: 'failure' }).end();
+        }).catch(err=>res.send({ fn: 'updateProject', status: 'failure', data:err }).end());
+
     }
     //deleteProject
     //deletes the project int he database with id :id
     deleteProject(req:express.Request,res:express.Response){
-        res.send({ fn: 'deleteProjects', status: 'success' }).end();
-    }
+        const id=Database.stringToId(req.params.id);
+        ProjectsController.db.deleteRecord(ProjectsController.projectsTable,{_id:id})
+        .then((results)=>res.send({ fn: 'deleteProject', status: 'success' }).end())
+        .catch((reason) => res.status(500).send(reason).end());
+}
 
 }

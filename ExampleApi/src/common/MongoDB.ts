@@ -94,4 +94,24 @@ export class Database {
         });
     }
 
+    //deleteRecord
+    // collection: the name of the collection to get from.
+    // query: a mongo query object
+    // returns a promise to a boolean indicating success
+    deleteRecord(collection: string,query: FilterQuery<any>={}): Promise<boolean>{
+        var dbname = this.dbName;
+        var url=this.url;
+        return new Promise(function (resolve, reject) {            
+            MongoClient.connect(url, function (err, db) {
+                if (err) reject(err);
+                const dbo = db.db(dbname);
+                dbo.collection(collection).deleteOne(query, (err, result) => {
+                    if (err) reject(err);
+                    db.close();
+                    resolve(true);
+                });
+            });
+        });
+
+    }
 }
