@@ -54,6 +54,20 @@ export class ProjectsController{
         ProjectsController.db.deleteRecord(ProjectsController.projectsTable,{_id:id})
             .then((results)=>results?(res.send({ fn: 'deleteProject', status: 'success' })):(res.send({ fn: 'deleteProject', status: 'failure', data: 'Not found' })).end())
             .catch((reason) => res.status(500).send(reason).end());
+    }
+    //getSemesters
+    //returns all valid unique semesters in the database
+    getSemesters(req:express.Request,res:express.Response){
+        ProjectsController.db.getRecords(ProjectsController.projectsTable)
+            .then(results=>{
+                //extracts just the semester
+                let semesters=results.map((x:any)=>x.semester);
+                //removes duplciates
+                semesters = semesters.filter((value:string, index:number, array:any[]) => 
+                    !array.filter((v, i) => value===v && i < index).length);
+                    res.send({ fn: 'deleteProject', status: 'success' ,data:{semesters: semesters}})
+            })
+            .catch((reason) => res.status(500).send(reason).end());
 }
 
 }
