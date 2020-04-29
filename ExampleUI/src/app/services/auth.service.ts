@@ -9,7 +9,7 @@ import { map, catchError } from 'rxjs/operators';
 export class AuthService {
   private path='http://localhost:3000/api/security/'
   private _token:string=null;
-  private CurrentUser: ReplaySubject<string>=new ReplaySubject<string>();
+  CurrentUser: ReplaySubject<string>=new ReplaySubject<string>();
 
   get token():string{
     if (this._token==null){

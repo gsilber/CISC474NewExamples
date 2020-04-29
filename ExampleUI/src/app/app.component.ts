@@ -11,7 +11,7 @@ export class AppComponent {
   get loggedIn():boolean{
     return this.authSvc.loggedIn;
   }
-  constructor(private authSvc:AuthService) {
+  constructor(public authSvc:AuthService) {
     authSvc.authorize();
   }
 
