@@ -20,7 +20,7 @@ export class SecurityController {
                 const usr: UserModel = UserModel.fromObject(userRecord);
                 if (!usr.validatePassword(req.body.password)) return res.sendStatus(401).end();
                 const token = jwt.sign(usr.toObject(), Config.secret, { expiresIn: Config.tokenLife });
-                res.send({ fn: 'login', status: 'success', data: { token: token } }).end();
+                res.send({ fn: 'login', status: 'success', data: { token: token,user: {email: req.body.email} } }).end();
             }).catch(err => res.sendStatus(500).end());
     }
 
