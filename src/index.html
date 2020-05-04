@@ -16162,15 +16162,11 @@
 }
     function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
         return "<h4>"+n+"</h4><table>"+
-            "<tr><td>Confirmed</td><td>"+(d.confirmed)+"</td></tr>"+
+            "<tr><td>Date </td><td>"+(d.date)+"</td></tr>"+
+            "<tr><td>Confirmed </td><td>"+(d.confirmed)+"</td></tr>"+
             "<tr><td>Deaths</td><td>"+(d.deaths)+"</td></tr>"+
             "</table>";
     }
-
-  // var myData = JSON.parse()
-  // d3.json(state_data, function(data) {
-   //     console.log(data);
-   // });
 
    //console.log("Test: " + state_data.Alabama[state_data.Alabama.length - 1].deaths);
 
@@ -16199,13 +16195,15 @@
                 console.log(state_ID[i]);
                 //Array.isArray(state_ID[i])
                 if(                Array.isArray(state_ID[i])){
-                sampleData[d]={ deaths: state_ID[i][state_ID[i].length-1].deaths,//deaths:d3.max([low,mid,high]), 
+                sampleData[d]={ date: state_ID[i][state_ID[i].length-1].date,
+                deaths: state_ID[i][state_ID[i].length-1].deaths,//deaths:d3.max([low,mid,high]), 
                 confirmed: state_ID[i][state_ID[i].length-1].confirmed,//confirmed:Math.round((low+mid+high)/3), 
                     color:d3.interpolate("#ffffcc", "#800026")(low/100)};
             } else{
                 sampleData[d]={
-                deaths:d3.max([low,mid,high]),
-                confirmed: Math.round((low+mid+high)/3),
+                date: 0,
+                deaths:0,
+                confirmed: 0,
                 color:d3.interpolate("#ffffcc", "#800026")(low/100)};
             }
         });
