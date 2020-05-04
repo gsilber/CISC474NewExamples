@@ -65,7 +65,6 @@
 	uStates.draw = function(id, data, toolTip){		
 		function mouseOver(d){
 			d3.select("#tooltip").transition().duration(200).style("opacity", .9);      
-			
 			d3.select("#tooltip").html(toolTip(d.n, data[d.id]))  
 				.style("left", (d3.event.pageX) + "px")     
 				.style("top", (d3.event.pageY - 28) + "px");
@@ -139,7 +138,34 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 <script>
- 
+    
+      //  $(function() {
+    
+        var state_data = {
+            "Alabama": [
+                 {
+                     "date": "2020-03-13",
+                     "confirmed": "6",
+                     "deaths": "0"
+                },
+                {
+                "date": "2020-03-14",
+                "confirmed": "12",
+                "deaths": "3"
+                }
+            ],
+            "California": [
+                 {
+                     "date": "2020-03-13",
+                     "confirmed": "7",
+                     "deaths": "0"
+                },
+                {
+                "date": "2020-03-14",
+                "confirmed": "12",
+                "deaths": "1"
+                }]
+            }
 
     function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
         return "<h4>"+n+"</h4><table>"+
@@ -149,10 +175,23 @@
     }
 
   // var myData = JSON.parse()
-   // d3.json(files, function(data) {
-    //console.log(data);
-  //  });
+  // d3.json(state_data, function(data) {
+   //     console.log(data);
+   // });
 
+   //console.log("Test: " + state_data.Alabama[state_data.Alabama.length - 1].deaths);
+
+   var state_ID = [state_data.Hawaii, state_data.Alaska, state_data.Florida,  state_data["South Carolina"], state_data.Alabama,
+   state_data.Georgia, state_data["North Carolina"], state_data.Tennessee,  state_data["Rhode Island"],  state_data.
+   state_data.Connecticut,  state_data.Massaschusetts,  state_data.Maine,  state_data["New Hampshire"], state_data.Vermont,
+   state_data["New York"],  state_data["New Jersey"],  state_data.Philadelphia,  state_data.Delaware,
+   state_data.Maryland, state_data["West Virginia"], state_data.Kentucky, state_data.Ohio, state_data.Mississippi,
+   state_data.Wyoming, state_data.Montana, state_data.Idaho, state_data.Washington, 0, state_data.Texas, 
+   state_data.California, state_data.Arizona, state_data.Nevada, state_data.Utah, state_data.Colarado,
+   state_data["New Mexico"], state_data.Oregon, state_data["North Dakota"], state_data["South Dakota"], state_data.Nebraska,
+   state_data.Iowa, state_data.Michigan, state_data.Indiana, state_data.Illinois, state_data.Minnesota, 
+   state_data.Wisconsin, state_data.Missouri, state_data.Arkansas, state_data.Oklahoma, state_data.Kansas,
+   state_data.Louisiana, state_data.Virginia]
    
     var sampleData ={}; /* Sample random data. */  
     ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
@@ -160,13 +199,27 @@
     "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
     "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
     "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
-        .forEach(function(d){
+        .forEach(function(d, i){
             var low=Math.round(100*Math.random()),
                 mid=Math.round(100*Math.random()),
                 high=Math.round(100*Math.random());
-            sampleData[d]={ deaths:d3.max([low,mid,high]),
-                    confirmed:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)};
+                console.log(state_ID[i]);
+                //Array.isArray(state_ID[i])
+                if(                Array.isArray(state_ID[i])){
+                sampleData[d]={ deaths: state_ID[i][state_ID[i].length-1].deaths,//deaths:d3.max([low,mid,high]), 
+                confirmed: state_ID[i][state_ID[i].length-1].confirmed,//confirmed:Math.round((low+mid+high)/3), 
+                    color:d3.interpolate("#ffffcc", "#800026")(low/100)};
+            } else{
+                sampleData[d]={
+                deaths:d3.max([low,mid,high]),
+                confirmed: Math.round((low+mid+high)/3),
+                color:d3.interpolate("#ffffcc", "#800026")(low/100)};
+            }
         });
+
+       // uStatePaths.
+       // deaths: state_data.d[state_data.d.length-1].deaths;
+       // confirmed: state_data.d[state_data.d.length-1].confirmed;
    
     /* draw states on id #statesvg */  
     uStates.draw("#statesvg", sampleData, tooltipHtml);
