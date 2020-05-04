@@ -137,15 +137,22 @@
 <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
 <script src="uStates.js"></script> <!-- creates uStates. -->
 <script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 <script>
  
+
     function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
         return "<h4>"+n+"</h4><table>"+
-            "<tr><td>Low</td><td>"+(d.low)+"</td></tr>"+
-            "<tr><td>Average</td><td>"+(d.avg)+"</td></tr>"+
-            "<tr><td>High</td><td>"+(d.high)+"</td></tr>"+
+            "<tr><td>Confirmed</td><td>"+(d.confirmed)+"</td></tr>"+
+            "<tr><td>Deaths</td><td>"+(d.deaths)+"</td></tr>"+
             "</table>";
     }
+
+  // var myData = JSON.parse()
+   // d3.json(files, function(data) {
+    //console.log(data);
+  //  });
+
    
     var sampleData ={}; /* Sample random data. */  
     ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
@@ -157,8 +164,8 @@
             var low=Math.round(100*Math.random()),
                 mid=Math.round(100*Math.random()),
                 high=Math.round(100*Math.random());
-            sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]),
-                    avg:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)};
+            sampleData[d]={ deaths:d3.max([low,mid,high]),
+                    confirmed:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)};
         });
    
     /* draw states on id #statesvg */  
