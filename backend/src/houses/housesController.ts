@@ -11,19 +11,41 @@ export class HousesController {
     getHouse(req: express.Request, res: express.Response){ //set so appends title, like api/houses/sometitlehere > see what req.send returns at this route
         const req_title = req.params.title;
         HousesController.db.getOneRecord(HousesController.housesCollection, {title : req_title})
-            .then((results) => res.send({msg:"completed getonerecord", data: results}).end()) //message sent back, see result returned by getOneRecord (aka a data obj)
+            .then((results) => res.send({fn: 'getHouse', status: 'success', data: results}).end()) //message sent back, see result returned by getOneRecord (aka a data obj)
             .catch((reason) => res.status(500).send(reason).end()); //not sure
     }
 
-    //request in form {"title":"someData"} 
-    //note: MUST have req body as JSON in postmates to work!
+    /*request in form {"title":"someData"} 
+     *note: MUST have req body as JSON in postmates to work!
+     *turning into object and back again to keep format of data when posting?
+     */
     postHouse(req: express.Request, res: express.Response){
         const house : HousesModel = HousesModel.fromObject(req.body); //turns request into HouseModel object
         HousesController.db.addRecord(HousesController.housesCollection, house.toObject())  //turns HouseModel obj back into sendable data
-            .then((results) => res.send(req.body.title).end())
+            .then((results) => res.send({fn: 'postHouse', status: 'success'}).end())
             .catch((reason) => res.status(500).send(reason).end());
     }
+
+    // {} get all in form of { {obj} , {obj} ...}
+    // what is diff bt req.params and req.body ?
+    getHouses(req: express.Request, res: express.Response) {
+        HousesController.db.getRecords(HousesController.housesCollection, {})
+            .then((results) => res.send({fn: 'getHouses', status: 'success', data: results}).end())
+            .catch((reason) => res.status(500).send(reason).end());
+
+    }
 /*
+
+    /getProjects
+    //sends a json object with all projects in the system that match :year
+    getProjects(req: express.Request, res: express.Response) {
+        const semester = req.params.semester;
+        ProjectsController.db.getRecords(ProjectsController.projectsTable, { semester: semester })
+            .then((results) => res.send({ fn: 'getProjects', status: 'success', data: results }).end())
+            .catch((reason) => res.status(500).send(reason).end());
+
+    }
+
     //getProject
     //sends the specific project as JSON with id=:id
     getProject(req: express.Request, res: express.Response) {

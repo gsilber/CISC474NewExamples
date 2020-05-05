@@ -8,6 +8,22 @@ export class ProjectsController {
     static db: Database = new Database(Config.url, "projects");
     static projectsTable = 'projects';
 
+    //testing stuff..
+    getHi(req: express.Request, res: express.Response){
+        const name = req.params.name;
+        ProjectsController.db.getOneRecord(ProjectsController.projectsTable, {name:name})
+            .then((results) => res.send(name).end())
+            .catch((reason) => res.status(500).send(reason).end());
+    }
+    postHi(req: express.Request, res: express.Response){
+        
+        const proj: ProjectsModel = ProjectsModel.fromObject(req.body);
+        ProjectsController.db.addRecord(ProjectsController.projectsTable, proj.toObject());
+           // .then((result: boolean) => res.send({ fn: 'addProject', status: 'success' }).end())
+           // .catch((reason) => res.status(500).send(reason).end());
+    }
+
+
     //getProjects
     //sends a json object with all projects in the system that match :year
     getProjects(req: express.Request, res: express.Response) {

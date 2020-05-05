@@ -11,6 +11,7 @@ export class HousesRouter extends AppRouter{
     setupRoutes(): void {  
 
         this.expressRouter.get('/:title', HousesRouter.hController.getHouse); //going to ../api/project/sometitle calls getHouse for that titled house
+        this.expressRouter.get('/', HousesRouter.hController.getHouses); 
         this.expressRouter.post('/', HousesRouter.hController.postHouse); //cannot post via url? must use postmates with req as JSON
         /*
         this.expressRouter.get('/semesters',ProjectsRouter.projController.getSemesters);
