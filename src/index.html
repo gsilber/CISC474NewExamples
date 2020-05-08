@@ -142,7 +142,7 @@
       //  $(function() {
     
         var state_data = {
-  "Alabama": [
+    "Alabama": [
     {
       "date": "2020-03-13",
       "confirmed": "6",
@@ -16197,22 +16197,23 @@
                 high=Math.round(100*Math.random());
                 console.log(state_ID[i]);
                 //Array.isArray(state_ID[i])
-                if(                Array.isArray(state_ID[i])){
-                sampleData[d]={ date: state_ID[i][state_ID[i].length-1].date,
-                deaths: state_ID[i][state_ID[i].length-1].deaths,//deaths:d3.max([low,mid,high]), 
-                confirmed: state_ID[i][state_ID[i].length-1].confirmed }; 
+                if(Array.isArray(state_ID[i]))
+                {
+                  sampleData[d]={ date: state_ID[i][state_ID[i].length-1].date,
+                  deaths: state_ID[i][state_ID[i].length-1].deaths,
+                  confirmed: state_ID[i][state_ID[i].length-1].confirmed }; 
 
-                if(state_ID[i][state_ID[i].length-1].confirmed > max_confirmed){
-                  max_confirmed = state_ID[i][state_ID[i].length-1].confirmed;
-                }
-                //,//confirmed:Math.round((low+mid+high)/3), 
-                   // color:d3.interpolate("#ffffcc", "#800026")(low/100)};
-            } else{
+                  if(state_ID[i][state_ID[i].length-1].confirmed > max_confirmed)
+                  {
+                    max_confirmed = state_ID[i][state_ID[i].length-1].confirmed;
+                  }
+            }
+            else
+            {
                 sampleData[d]={
                 date: 0,
                 deaths:0,
-                confirmed: 0 }; //,
-               // color:d3.interpolate("#ffffcc", "#800026")(low/100)};
+                confirmed: 0 }; 
             }
         });
 
@@ -16222,14 +16223,8 @@
                 sampleData[d]={ 
                     date: sampleData[d].date, deaths: sampleData[d].deaths, confirmed: sampleData[d].confirmed,
                     color:d3.interpolate("#ffffcc", "#800026")( state_ID[i][state_ID[i].length-1].confirmed/ max_confirmed / 25 )};
-            } //else{
-                //sampleData[d]={
-                //#color:d3.interpolate("#ffffcc", "#800026")(0/100)};
-            //}
+            } 
         });
-       // uStatePaths.
-       // deaths: state_data.d[state_data.d.length-1].deaths;
-       // confirmed: state_data.d[state_data.d.length-1].confirmed;
    
     /* draw states on id #statesvg */  
     uStates.draw("#statesvg", sampleData, tooltipHtml);
