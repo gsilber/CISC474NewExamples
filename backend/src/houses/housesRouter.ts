@@ -9,8 +9,10 @@ export class HousesRouter extends AppRouter{
 
     //sets up the routes within this module shows an example of a route that requires authorization, and one that does not
     setupRoutes(): void {  
+        //going to ../api/project/sometitle calls getHouse for that titled house
+        //whatever is behind colons is params. so req.params.title is whatever was at the end of that url
+        this.expressRouter.get('/:id', HousesRouter.hController.getHouse); 
 
-        this.expressRouter.get('/:title', HousesRouter.hController.getHouse); //going to ../api/project/sometitle calls getHouse for that titled house
         this.expressRouter.get('/', HousesRouter.hController.getHouses); 
         this.expressRouter.post('/', HousesRouter.hController.postHouse); //cannot post via url? must use postmates with req as JSON
         /*

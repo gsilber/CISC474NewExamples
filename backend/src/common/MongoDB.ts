@@ -26,7 +26,7 @@ export class Database {
                 dbo.collection(collection).insertOne(object,(err, result) => {
                     if (err) reject(err);
                     db.close();
-                    resolve(true);
+                    resolve(result.insertedId); //changed so we can get the id on post
                 });
             });
                 

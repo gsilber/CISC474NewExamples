@@ -8,9 +8,9 @@ export class HousesController {
     static db: Database = new Database(Config.url, "houses");
     static housesCollection = 'houses';
 
-    getHouse(req: express.Request, res: express.Response){ //set so appends title, like api/houses/sometitlehere > see what req.send returns at this route
-        const req_title = req.params.title;
-        HousesController.db.getOneRecord(HousesController.housesCollection, {title : req_title})
+    getHouse(req: express.Request, res: express.Response){ //set so url param is id, like api/houses/someidhere > see what req.send returns at this route
+        const req_id = Database.stringToId(req.params.id);
+        HousesController.db.getOneRecord(HousesController.housesCollection, {_id : req_id})
             .then((results) => res.send({fn: 'getHouse', status: 'success', data: results}).end()) //message sent back, see result returned by getOneRecord (aka a data obj)
             .catch((reason) => res.status(500).send(reason).end()); //not sure
     }
@@ -18,11 +18,12 @@ export class HousesController {
     /*request in form {"title":"someData"} 
      *note: MUST have req body as JSON in postmates to work!
      *turning into object and back again to keep format of data when posting?
+     *id is returned in data now
      */
     postHouse(req: express.Request, res: express.Response){
         const house : HousesModel = HousesModel.fromObject(req.body); //turns request into HouseModel object
         HousesController.db.addRecord(HousesController.housesCollection, house.toObject())  //turns HouseModel obj back into sendable data
-            .then((results) => res.send({fn: 'postHouse', status: 'success'}).end())
+            .then((results) => res.send({fn: 'postHouse', status: 'success', data: results}).end())
             .catch((reason) => res.status(500).send(reason).end());
     }
 
