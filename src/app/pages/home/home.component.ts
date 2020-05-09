@@ -10,7 +10,8 @@ export class HomeComponent implements OnInit {
   semesters=[];
   constructor(private projSvc:ProjectsService) { 
     projSvc.getProjects().subscribe(result=>{
-      this.semesters=result.data.semesters;
+      this.semesters=result["Alabama"];
+      console.log(this.semesters);
     })
   }
 
