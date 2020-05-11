@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { UsMapModule } from 'angular-us-map';
+import { D3MapComponent } from './d3-map/d3-map.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UsMapModule } from 'angular-us-map';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AddprojectComponent
+    AddprojectComponent,
+    D3MapComponent
   ],
   imports: [
     BrowserModule,
