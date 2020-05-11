@@ -22,11 +22,12 @@ export class D3MapComponent implements OnInit {
       this.stateData = result;
       console.log('d3 Map info');
       console.log(this.stateData);
+      this.createChart();
     })
   }
 
   ngOnInit(): void{
-    this.createChart();
+    
   }
 
   private createChart(): void {
@@ -114,21 +115,59 @@ export class D3MapComponent implements OnInit {
         "</table>";
     }
 
+    var state_ID = [this.stateData["Hawaii"], this.stateData.Alaska, this.stateData.Florida,  this.stateData["South Carolina"],   this.stateData.Georgia, 
+    this.stateData.Alabama, this.stateData["North Carolina"], this.stateData.Tennessee,  this.stateData["Rhode Island"], 
+   this.stateData.Connecticut,  this.stateData.Massachusetts,  this.stateData.Maine,  this.stateData["New Hampshire"], this.stateData.Vermont,
+   this.stateData["New York"],  this.stateData["New Jersey"],  this.stateData.Pennsylvania,  this.stateData.Delaware,
+   this.stateData.Maryland, this.stateData["West Virginia"], this.stateData.Kentucky, this.stateData.Ohio, this.stateData.Michigan,
+   this.stateData.Wyoming, this.stateData.Montana, this.stateData.Idaho, this.stateData.Washington, 0, this.stateData.Texas, 
+   this.stateData.California, this.stateData.Arizona, this.stateData.Nevada, this.stateData.Utah, this.stateData.Colorado,
+   this.stateData["New Mexico"], this.stateData.Oregon, this.stateData["North Dakota"], this.stateData["South Dakota"], this.stateData.Nebraska,
+   this.stateData.Iowa, this.stateData.Mississippi, this.stateData.Indiana, this.stateData.Illinois, this.stateData.Minnesota, 
+   this.stateData.Wisconsin, this.stateData.Missouri, this.stateData.Arkansas, this.stateData.Oklahoma, this.stateData.Kansas,
+   this.stateData.Louisiana, this.stateData.Virginia]
+    var max_confirmed = 0;
+
     var sampleData = {};	/* Sample random data. */
-    ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+    let states = ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
       "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH",
       "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
       "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
       "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
-      .forEach(function (d) {
-        var low = Math.round(100 * Math.random()),
-          mid = Math.round(100 * Math.random()),
-          high = Math.round(100 * Math.random());
-        sampleData[d] = {
-          low: d3.min([low, mid, high]), high: d3.max([low, mid, high]),
-          avg: Math.round((low + mid + high) / 3), color: d3.interpolate("#ffffcc", "#800026")(low / 100)
-        };
-      });
+      states.forEach(function(d, i){
+        var low=Math.round(100*Math.random()),
+            mid=Math.round(100*Math.random()),
+            high=Math.round(100*Math.random());
+            console.log(state_ID[i]);
+            //Array.isArray(state_ID[i])
+            if(Array.isArray(state_ID[i]))
+            {
+              sampleData[d]={ date: state_ID[i][state_ID[i].length-1].date,
+              deaths: state_ID[i][state_ID[i].length-1].deaths,
+              confirmed: state_ID[i][state_ID[i].length-1].confirmed }; 
+
+              if(state_ID[i][state_ID[i].length-1].confirmed > max_confirmed)
+              {
+                max_confirmed = state_ID[i][state_ID[i].length-1].confirmed;
+              }
+        }
+        else
+        {
+            sampleData[d]={
+            date: 0,
+            deaths:0,
+            confirmed: 0 }; 
+        }
+    });
+
+    // Set the color for each state
+    states.forEach(function(d, i){
+      if(Array.isArray(state_ID[i])){
+            sampleData[d]={ 
+                date: sampleData[d].date, deaths: sampleData[d].deaths, confirmed: sampleData[d].confirmed,
+                color:d3.interpolate("#ffffcc", "#800026")( state_ID[i][state_ID[i].length-1].confirmed/ max_confirmed / 25 )};
+        } 
+    });
 
     /* draw states on id #statesvg */
     console.log(this.chartContainer.nativeElement);
