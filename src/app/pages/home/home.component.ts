@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   constructor(private projSvc:ProjectsService) { 
     projSvc.getProjects().subscribe(result=>{
       this.stateData=result;
-      console.log(this.stateData);
+      //console.log(this.stateData);
     })
   }
 
