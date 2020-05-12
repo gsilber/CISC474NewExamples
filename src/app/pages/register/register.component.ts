@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as CanvasJS from './canvasjs.min';
+import { ProjectsService } from 'src/app/services/projects.service';
+import { max } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-register',
@@ -7,30 +10,81 @@ import * as CanvasJS from './canvasjs.min';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-	ngOnInit() {
-	let dataPoints = [];
-	let y = 0;		
-	for ( var i = 0; i < 10000; i++ ) {		  
-		y += Math.round(5 + Math.random() * (-5 - 5));	
-		dataPoints.push({ y: y});
+	stateData: any;
+	constructor(private projSvc:ProjectsService) { 
+	  projSvc.getProjects().subscribe(result=>{
+		this.stateData=result;
+		this.createGraph();
+	  })
 	}
-	let chart = new CanvasJS.Chart("chartContainer", {
-		zoomEnabled: true,
-		animationEnabled: true,
-		exportEnabled: true,
-		title: {
-			text: "Performance Demo - 10000 DataPoints"
-		},
-		subtitles:[{
-			text: "Try Zooming and Panning"
-		}],
-		data: [
-		{
-			type: "line",                
-			dataPoints: dataPoints
-		}]
-	});
+
+	createGraph(){
+
 		
-	chart.render();
+		// Initialize max children state (arbitrary)
+		var max_children = this.stateData["Hawaii"]
+
+		// Create array of states
+		var state_ID = [this.stateData["Hawaii"], this.stateData.Alaska, this.stateData.Florida,  this.stateData["South Carolina"],   this.stateData.Georgia, 
+					this.stateData.Alabama, this.stateData["North Carolina"], this.stateData.Tennessee,  this.stateData["Rhode Island"], 
+					this.stateData.Connecticut,  this.stateData.Massachusetts,  this.stateData.Maine,  this.stateData["New Hampshire"], this.stateData.Vermont,
+					this.stateData["New York"],  this.stateData["New Jersey"],  this.stateData.Pennsylvania,  this.stateData.Delaware,
+					this.stateData.Maryland, this.stateData["West Virginia"], this.stateData.Kentucky, this.stateData.Ohio, this.stateData.Michigan,
+					this.stateData.Wyoming, this.stateData.Montana, this.stateData.Idaho, this.stateData.Washington, 0, this.stateData.Texas, 
+					this.stateData.California, this.stateData.Arizona, this.stateData.Nevada, this.stateData.Utah, this.stateData.Colorado,
+					this.stateData["New Mexico"], this.stateData.Oregon, this.stateData["North Dakota"], this.stateData["South Dakota"], this.stateData.Nebraska,
+					this.stateData.Iowa, this.stateData.Mississippi, this.stateData.Indiana, this.stateData.Illinois, this.stateData.Minnesota, 
+					this.stateData.Wisconsin, this.stateData.Missouri, this.stateData.Arkansas, this.stateData.Oklahoma, this.stateData.Kansas,
+					this.stateData.Louisiana, this.stateData.Virginia];
+					
+					
+			// Calculate state with most dates collected
+			state_ID.forEach(function(d, i){
+					if(d.length > max_children.length){
+						max_children = d;
+					}
+			});
+
+			// Create a list of all the dates that are collected
+			var listOfDates = [];
+			max_children.forEach(function(d, i){
+				listOfDates.push(d.date)
+			});
+
+			console.log(listOfDates);
+
+			// Create an array that matches listOfDates in size and fill with total confirmed 
+			var ConfirmedEachDay = []
+			for(var i = 0; i < listOfDates.length; i++){
+				ConfirmedEachDay.push(0);
+			}
+			state_ID.forEach(function(d,i){
+				for(var k = 0; k < d.length; k++){
+					ConfirmedEachDay[ConfirmedEachDay.length-1 - k] += +d[d.length - 1 - k].confirmed;
+				}
+		});
+
+		let dataPoints = [];
+		for ( var dateNumber = 0; dateNumber < listOfDates.length; dateNumber++ ) {		  
+			dataPoints.push({ y: ConfirmedEachDay[dateNumber]});
+		}
+		let chart = new CanvasJS.Chart("chartContainer", {
+			zoomEnabled: true,
+			animationEnabled: true,
+			exportEnabled: true,
+			title: {
+				text: "Confirmed Cases Over Time"
+			},
+			data: [
+			{
+				type: "line",                
+				dataPoints: dataPoints
+			}]
+		});
+			
+		chart.render();
+	}
+	ngOnInit() {
+
     }
 }
