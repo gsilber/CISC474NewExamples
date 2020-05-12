@@ -27,7 +27,16 @@ export class D3MapComponent implements OnInit {
   ngOnInit(): void{
     
   }
-
+  
+  private createMenu() : void{
+    var dropDown = document.getElementById("slct"),
+    wrapper = document.getElementById("wrapperOne");
+      function test() {
+        wrapper.innerHTML = "<b>State:</b> ";
+        wrapper.style.display = "none";
+        wrapper.style.display = "block";
+ }
+  }
   private createChart(): void {
 
     var uStatePaths = [

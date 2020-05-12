@@ -6,6 +6,22 @@ function tooltipHtml(n, d){ /* function to create html content string in tooltip
         "</table>";
 }
 
+var dropDown = document.getElementById("slct"),
+   myWrappers = [
+      document.getElementById("wrapperOne"),
+      document.getElementById("wrapperTwo"),
+      document.getElementById("wrapperThree")
+   ];
+function test() {
+for (i=0; i<myWrappers.length; i++){
+    if(dropDown.value != "default"){ 
+        myWrappers[i].innerHTML = "<b>State:</b> ";
+        myWrappers[i].style.display = "none";
+       myWrappers[0].style.display = "block";
+     } 
+ }
+}
+
 //console.log("Test: " + state_data.Alabama[state_data.Alabama.length - 1].deaths);
 
 var state_ID = [state_data.Hawaii, state_data.Alaska, state_data.Florida,  state_data["South Carolina"],   state_data.Georgia, 
