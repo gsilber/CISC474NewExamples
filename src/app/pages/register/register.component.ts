@@ -51,23 +51,29 @@ export class RegisterComponent implements OnInit {
 				listOfDates.push(d.date)
 			});
 
-			console.log(listOfDates);
 
 			// Create an array that matches listOfDates in size and fill with total confirmed 
 			var ConfirmedEachDay = []
+
+			// Initalize confirmed deaths to 0
 			for(var i = 0; i < listOfDates.length; i++){
 				ConfirmedEachDay.push(0);
 			}
+
+			// Calculate the total confirmed cases each day
 			state_ID.forEach(function(d,i){
 				for(var k = 0; k < d.length; k++){
 					ConfirmedEachDay[ConfirmedEachDay.length-1 - k] += +d[d.length - 1 - k].confirmed;
 				}
-		});
+			});
 
+		// Set X and Y coordinates (X: Number of days, Y: Total Confirmed)
 		let dataPoints = [];
 		for ( var dateNumber = 0; dateNumber < listOfDates.length; dateNumber++ ) {		  
-			dataPoints.push({ y: ConfirmedEachDay[dateNumber]});
+			dataPoints.push({y: ConfirmedEachDay[dateNumber]});
 		}
+
+		// Create the graph
 		let chart = new CanvasJS.Chart("chartContainer", {
 			zoomEnabled: true,
 			animationEnabled: true,
@@ -82,6 +88,7 @@ export class RegisterComponent implements OnInit {
 			}]
 		});
 			
+		// Render the graph
 		chart.render();
 	}
 	ngOnInit() {
