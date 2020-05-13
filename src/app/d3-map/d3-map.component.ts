@@ -2,7 +2,8 @@ import { Component, ElementRef, ViewChild, OnInit, ViewEncapsulation, OnChanges}
 
 import * as d3 from 'd3';
 import { ProjectsService } from '../services/projects.service';
-
+import { TestBed } from '@angular/core/testing';
+declare var test: any;
 
 @Component({
   selector: 'app-d3-map',
@@ -23,20 +24,19 @@ export class D3MapComponent implements OnInit {
       this.createChart();
     })
   }
-
+  
   ngOnInit(): void{
     
   }
   
-  private createMenu() : void{
-    var dropDown = document.getElementById("slct"),
-    wrapper = document.getElementById("wrapperOne");
-      function test() {
-        wrapper.innerHTML = "<b>State:</b> ";
-        wrapper.style.display = "none";
-        wrapper.style.display = "block";
- }
-  }
+   test() {
+    var inputValue = (<HTMLInputElement>document.getElementById("slct")).value;
+    var myWrapper = document.getElementById("wrapperOne");
+       myWrapper.innerHTML = "<b>State: </b>" + inputValue;
+       myWrapper.style.display = "none";
+      myWrapper.style.display = "block";
+}
+  
   private createChart(): void {
 
     var uStatePaths = [
