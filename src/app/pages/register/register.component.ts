@@ -69,8 +69,8 @@ export class RegisterComponent implements OnInit {
 
 		// Set X and Y coordinates (X: Number of days, Y: Total Confirmed)
 		let dataPoints = [];
-		for ( var dateNumber = 0; dateNumber < listOfDates.length; dateNumber++ ) {		  
-			dataPoints.push({y: ConfirmedEachDay[dateNumber]});
+		for ( var dateNumber = 0; dateNumber < listOfDates.length; dateNumber++ ) {	 
+			dataPoints.push({x: new Date(listOfDates[dateNumber]), y: ConfirmedEachDay[dateNumber]});
 		}
 
 		// Create the graph
@@ -79,7 +79,14 @@ export class RegisterComponent implements OnInit {
 			animationEnabled: true,
 			exportEnabled: true,
 			title: {
-				text: "Confirmed Cases Over Time"
+				text: "Confirmed Cases Over Time",
+				fontFamily: "Times"
+			},
+			axisX:{
+				labelFontFamily: "Times"
+			},
+			axisY:{
+				labelFontFamily: "Times"
 			},
 			data: [
 			{
