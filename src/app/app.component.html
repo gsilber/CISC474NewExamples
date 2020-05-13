@@ -1,0 +1,24 @@
+<style>
+  nav{position: relative;}
+  .navbar-nav-right{
+    position:absolute;right:0px;
+  }
+  .bg-primary{
+    background-color: #a9a9a9 !important;
+  }
+</style>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <a class="navbar-brand" routerLink='home'>United States COVID-19 Data</a>
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink='d3-map' routerLinkActive='active'>Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink='graph' routerLinkActive='active'>Graph</a>
+    </li>
+  </ul>
+</nav>
+<div class="container-fluid" role="main">
+<router-outlet></router-outlet>
+</div>
