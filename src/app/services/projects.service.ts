@@ -11,6 +11,6 @@ export class ProjectsService {
   constructor(private http:HttpClient) { }
 
   getProjects(): Observable<any>{
-    return this.http.get(this.path+'semesters');
+    return this.http.get(this.path+'covid-data');
   }
 }

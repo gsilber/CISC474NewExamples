@@ -1,0 +1,99 @@
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #688baf;
+    background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select */
+  .select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #4b5968;
+    overflow: hidden;
+    border-radius: .25em;
+  }
+  select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    cursor: pointer;
+  }
+  /* Arrow */
+  .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #34495e;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: #9dd4d8;
+  }
+app-d3-map { 
+    .state{
+		fill: none;
+		stroke: #a9a9a9;
+		stroke-width: 1;
+	}
+	.state:hover{
+		fill-opacity:0.5;
+	}
+	#tooltip {   
+		position: absolute;           
+		text-align: center;
+		padding: 20px;             
+		margin: 10px;
+		font: 12px sans-serif;        
+		background: lightsteelblue;   
+		border: 1px;      
+		border-radius: 2px;           
+		pointer-events: none;         
+	}
+	#tooltip h4{
+		margin:0;
+		font-size:14px;
+	}
+	#tooltip{
+		background:rgba(0,0,0,0.9);
+		border:1px solid grey;
+		border-radius:5px;
+		font-size:12px;
+		width:auto;
+		padding:4px;
+		color:white;
+		opacity:0;
+	}
+	#tooltip table{
+		table-layout:fixed;
+	}
+	#tooltip tr td{
+		padding:0;
+		margin:0;
+	}
+	#tooltip tr td:nth-child(1){
+		width:50px;
+	}
+	#tooltip tr td:nth-child(2){
+		text-align:center;
+	}
+
+}

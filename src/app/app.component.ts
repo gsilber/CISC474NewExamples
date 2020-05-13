@@ -19,4 +19,6 @@ export class AppComponent {
     this.authSvc.logout();
     return false;
   }
+
+  
 }

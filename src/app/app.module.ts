@@ -10,6 +10,9 @@ import { AddprojectComponent } from './pages/addproject/addproject.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { UsMapModule } from 'angular-us-map';
+import { D3MapComponent } from './d3-map/d3-map.component';
+
 
 @NgModule({
   declarations: [
@@ -17,13 +20,15 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AddprojectComponent
+    AddprojectComponent,
+    D3MapComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UsMapModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true}],
   bootstrap: [AppComponent]
