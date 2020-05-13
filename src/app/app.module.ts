@@ -1,12 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { GraphComponent } from './pages/graph/graph.component';
-import { AddprojectComponent } from './pages/addproject/addproject.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -18,9 +15,7 @@ import { D3MapComponent } from './d3-map/d3-map.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
     GraphComponent,
-    AddprojectComponent,
     D3MapComponent
   ],
   imports: [
