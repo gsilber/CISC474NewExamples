@@ -45,12 +45,12 @@ export class GraphComponent implements OnInit {
 					}
 			});
 
+
 			// Create a list of all the dates that are collected
 			var listOfDates = [];
 			max_children.forEach(function(d, i){
 				listOfDates.push(d.date)
 			});
-
 
 			// Create an array that matches listOfDates in size and fill with total confirmed 
 			var ConfirmedEachDay = []
@@ -69,8 +69,8 @@ export class GraphComponent implements OnInit {
 
 		// Set X and Y coordinates (X: Number of days, Y: Total Confirmed)
 		let dataPoints = [];
-		for ( var dateNumber = 0; dateNumber < listOfDates.length; dateNumber++ ) {	 
-			dataPoints.push({x: new Date(listOfDates[dateNumber]), y: ConfirmedEachDay[dateNumber]});
+		for ( var dateNumber = 0; dateNumber < listOfDates.length; dateNumber++ ) {	
+			dataPoints.push({x: new Date(listOfDates[dateNumber] + " 00:00:00"), y: ConfirmedEachDay[dateNumber-1]});
 		}
 
 		// Create the graph
