@@ -5,11 +5,11 @@ import { max } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-graph',
+  templateUrl: './graph.component.html',
+  styleUrls: ['./graph.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class GraphComponent implements OnInit {
 	stateData: any;
 	constructor(private projSvc:ProjectsService) { 
 	  projSvc.getProjects().subscribe(result=>{
