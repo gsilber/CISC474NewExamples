@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, ViewEncapsulation, OnChanges} from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, ViewEncapsulation, OnChanges } from '@angular/core';
 
 import * as d3 from 'd3';
 import { ProjectsService } from '../services/projects.service';
@@ -14,7 +14,7 @@ declare var test: any;
 export class D3MapComponent implements OnInit {
 
   // Map HTML div
-  @ViewChild('statesvg', {static: true, read: ElementRef}) chartContainer: ElementRef;
+  @ViewChild('statesvg', { static: true, read: ElementRef }) chartContainer: ElementRef;
 
   stateData: any;
 
@@ -24,19 +24,29 @@ export class D3MapComponent implements OnInit {
       this.createChart();
     })
   }
-  
-  ngOnInit(): void{
-    
+
+  ngOnInit(): void {
+
   }
-  
-   test() {
+
+  test() {
     var inputValue = (<HTMLInputElement>document.getElementById("slct")).value;
+    var totalCases = this.stateData[inputValue][this.stateData[inputValue].length - 1].confirmed;
+    var totalDeaths = this.stateData[inputValue][this.stateData[inputValue].length - 1].deaths;
     var myWrapper = document.getElementById("wrapperOne");
-       myWrapper.innerHTML = "<b>State: </b>" + inputValue;
-       myWrapper.style.display = "none";
-      myWrapper.style.display = "block";
-}
-  
+    myWrapper.innerHTML = "<b>State: </b>" + inputValue;
+    myWrapper.style.display = "none";
+    myWrapper.style.display = "block";
+    var myWrapper2 = document.getElementById("wrapperTwo");
+    myWrapper2.innerHTML = "<b>Confirmed Cases: </b>" + totalCases
+    myWrapper2.style.display = "none";
+    myWrapper2.style.display = "block";
+    var myWrapper3 = document.getElementById("wrapperThree");
+    myWrapper3.innerHTML = "<b>Total Deaths: </b>" + totalDeaths
+    myWrapper3.style.display = "none";
+    myWrapper3.style.display = "block";
+  }
+
   private createChart(): void {
 
     var uStatePaths = [
@@ -113,24 +123,24 @@ export class D3MapComponent implements OnInit {
     }
 
     function tooltipHtml(n, d) {	/* function to create html content string in tooltip div. */
-      return "<h4>"+n+"</h4><table>"+
-            "<tr><td>Date </td><td>"+(d.date)+"</td></tr>"+
-            "<tr><td>Confirmed </td><td>"+(d.confirmed)+"</td></tr>"+
-            "<tr><td>Deaths</td><td>"+(d.deaths)+"</td></tr>"+
-            "</table>";
+      return "<h4>" + n + "</h4><table>" +
+        "<tr><td>Date </td><td>" + (d.date) + "</td></tr>" +
+        "<tr><td>Confirmed </td><td>" + (d.confirmed) + "</td></tr>" +
+        "<tr><td>Deaths</td><td>" + (d.deaths) + "</td></tr>" +
+        "</table>";
     }
 
-    var state_ID = [this.stateData["Hawaii"], this.stateData.Alaska, this.stateData.Florida,  this.stateData["South Carolina"],   this.stateData.Georgia, 
-    this.stateData.Alabama, this.stateData["North Carolina"], this.stateData.Tennessee,  this.stateData["Rhode Island"], 
-   this.stateData.Connecticut,  this.stateData.Massachusetts,  this.stateData.Maine,  this.stateData["New Hampshire"], this.stateData.Vermont,
-   this.stateData["New York"],  this.stateData["New Jersey"],  this.stateData.Pennsylvania,  this.stateData.Delaware,
-   this.stateData.Maryland, this.stateData["West Virginia"], this.stateData.Kentucky, this.stateData.Ohio, this.stateData.Michigan,
-   this.stateData.Wyoming, this.stateData.Montana, this.stateData.Idaho, this.stateData.Washington, 0, this.stateData.Texas, 
-   this.stateData.California, this.stateData.Arizona, this.stateData.Nevada, this.stateData.Utah, this.stateData.Colorado,
-   this.stateData["New Mexico"], this.stateData.Oregon, this.stateData["North Dakota"], this.stateData["South Dakota"], this.stateData.Nebraska,
-   this.stateData.Iowa, this.stateData.Mississippi, this.stateData.Indiana, this.stateData.Illinois, this.stateData.Minnesota, 
-   this.stateData.Wisconsin, this.stateData.Missouri, this.stateData.Arkansas, this.stateData.Oklahoma, this.stateData.Kansas,
-   this.stateData.Louisiana, this.stateData.Virginia]
+    var state_ID = [this.stateData["Hawaii"], this.stateData.Alaska, this.stateData.Florida, this.stateData["South Carolina"], this.stateData.Georgia,
+    this.stateData.Alabama, this.stateData["North Carolina"], this.stateData.Tennessee, this.stateData["Rhode Island"],
+    this.stateData.Connecticut, this.stateData.Massachusetts, this.stateData.Maine, this.stateData["New Hampshire"], this.stateData.Vermont,
+    this.stateData["New York"], this.stateData["New Jersey"], this.stateData.Pennsylvania, this.stateData.Delaware,
+    this.stateData.Maryland, this.stateData["West Virginia"], this.stateData.Kentucky, this.stateData.Ohio, this.stateData.Michigan,
+    this.stateData.Wyoming, this.stateData.Montana, this.stateData.Idaho, this.stateData.Washington, 0, this.stateData.Texas,
+    this.stateData.California, this.stateData.Arizona, this.stateData.Nevada, this.stateData.Utah, this.stateData.Colorado,
+    this.stateData["New Mexico"], this.stateData.Oregon, this.stateData["North Dakota"], this.stateData["South Dakota"], this.stateData.Nebraska,
+    this.stateData.Iowa, this.stateData.Mississippi, this.stateData.Indiana, this.stateData.Illinois, this.stateData.Minnesota,
+    this.stateData.Wisconsin, this.stateData.Missouri, this.stateData.Arkansas, this.stateData.Oklahoma, this.stateData.Kansas,
+    this.stateData.Louisiana, this.stateData.Virginia]
     var max_confirmed = 0;
 
     var sampleData = {};	/* Sample random data. */
@@ -139,35 +149,36 @@ export class D3MapComponent implements OnInit {
       "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT",
       "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN",
       "WI", "MO", "AR", "OK", "KS", "LS", "VA"]
-      states.forEach(function(d, i){
-            //Array.isArray(state_ID[i])
-        if(Array.isArray(state_ID[i]))
-        {
-          sampleData[d]={ date: state_ID[i][state_ID[i].length-1].date,
-          deaths: state_ID[i][state_ID[i].length-1].deaths,
-          confirmed: state_ID[i][state_ID[i].length-1].confirmed }; 
+    states.forEach(function (d, i) {
+      //Array.isArray(state_ID[i])
+      if (Array.isArray(state_ID[i])) {
+        sampleData[d] = {
+          date: state_ID[i][state_ID[i].length - 1].date,
+          deaths: state_ID[i][state_ID[i].length - 1].deaths,
+          confirmed: state_ID[i][state_ID[i].length - 1].confirmed
+        };
 
-          if(state_ID[i][state_ID[i].length-1].confirmed > max_confirmed)
-          {
-            max_confirmed = state_ID[i][state_ID[i].length-1].confirmed;
-          }
+        if (state_ID[i][state_ID[i].length - 1].confirmed > max_confirmed) {
+          max_confirmed = state_ID[i][state_ID[i].length - 1].confirmed;
         }
-        else
-        {
-            sampleData[d]={
-            date: 0,
-            deaths:0,
-            confirmed: 0 }; 
-        }
+      }
+      else {
+        sampleData[d] = {
+          date: 0,
+          deaths: 0,
+          confirmed: 0
+        };
+      }
     });
 
     // Set the color for each state
-    states.forEach(function(d, i){
-      if(Array.isArray(state_ID[i])){
-            sampleData[d]={ 
-                date: sampleData[d].date, deaths: sampleData[d].deaths, confirmed: sampleData[d].confirmed,
-                color:d3.interpolate("#ffffcc", "#800026")( state_ID[i][state_ID[i].length-1].confirmed/ max_confirmed / 25 )};
-        } 
+    states.forEach(function (d, i) {
+      if (Array.isArray(state_ID[i])) {
+        sampleData[d] = {
+          date: sampleData[d].date, deaths: sampleData[d].deaths, confirmed: sampleData[d].confirmed,
+          color: d3.interpolate("#ffffcc", "#800026")(state_ID[i][state_ID[i].length - 1].confirmed / max_confirmed / 25)
+        };
+      }
     });
 
     /* draw states on id #statesvg */
