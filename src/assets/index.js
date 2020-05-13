@@ -6,6 +6,8 @@ function tooltipHtml(n, d){ /* function to create html content string in tooltip
         "</table>";
 }
 
+
+
 //console.log("Test: " + state_data.Alabama[state_data.Alabama.length - 1].deaths);
 
 var state_ID = [state_data.Hawaii, state_data.Alaska, state_data.Florida,  state_data["South Carolina"],   state_data.Georgia, 
