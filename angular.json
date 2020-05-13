@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ExampleUI": {
+    "COVID19-FrontEnd": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ExampleUI",
+            "outputPath": "dist/COVID19-FrontEnd",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ExampleUI:build"
+            "browserTarget": "COVID19-FrontEnd:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ExampleUI:build:production"
+              "browserTarget": "COVID19-FrontEnd:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ExampleUI:build"
+            "browserTarget": "COVID19-FrontEnd:build"
           }
         },
         "test": {
@@ -116,18 +116,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ExampleUI:serve"
+            "devServerTarget": "COVID19-FrontEnd:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ExampleUI:serve:production"
+              "devServerTarget": "COVID19-FrontEnd:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ExampleUI",
+  "defaultProject": "COVID19-FrontEnd",
   "cli": {
     "analytics": false
   }
