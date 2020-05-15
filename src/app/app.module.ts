@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { UsMapModule } from 'angular-us-map';
 import { D3MapComponent } from './d3-map/d3-map.component';
+import { StateGraphComponent } from './pages/stateGraph/stateGraph.component'
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { D3MapComponent } from './d3-map/d3-map.component';
     AppComponent,
     HomeComponent,
     GraphComponent,
-    D3MapComponent
+    D3MapComponent,
+    StateGraphComponent
   ],
   imports: [
     BrowserModule,
