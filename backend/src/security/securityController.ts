@@ -28,7 +28,7 @@ export class SecurityController {
     //expects email and password fields to be set in the body of the post request
     //sends a success message to caller on success, or a failure status code on failure
     register(req: express.Request, res: express.Response, next: express.NextFunction) {
-        const user: UserModel = new UserModel(req.body.email, req.body.password, ["5eb5a1fbe2e28b1d9c2aafc2", "5eb5a1fbe2e28b1d9c2aafc2"]);
+        const user: UserModel = new UserModel(req.body.email, req.body.password, []);
         SecurityController.db.getOneRecord(SecurityController.usersTable, { email: req.body.email })
             .then((userRecord: any) => {
                 if (userRecord) return res.status(400).send({ fn: 'register', status: 'failure', data: 'User Exits' }).end();
@@ -62,10 +62,11 @@ export class SecurityController {
     //expects id of house in bdy of post request
     //req in form {id: someid}
     addFavorite(req: express.Request, res: express.Response, next: express.NextFunction) {
-        const user: UserModel = new UserModel(req.body.email, req.body.password, req.body.favorites); //putting in format, req doesn't need to have all args to function
-        SecurityController.db.updateRecord(SecurityController.usersTable, {email: user.email},{$push: { favorites: "5eb5a1fbe2e28b1d9c2aafc2"}}).then((result:Boolean)=>{ // $concatArrays: [ "$favorites", "user.favorites" ]
+        const email = req.body.email;
+        const id = req.body.id;
+        SecurityController.db.updateRecord(SecurityController.usersTable, {email: email},{$addToSet: {favorites: id}}).then((result:Boolean)=>{ // $concatArrays: [ "$favorites", "user.favorites" ]
             if (result)
-                res.send({ fn: 'addFav', status: 'success' }).end();
+                res.send({ fn: 'addFav', status: 'success', email: email }).end();
             else 
                 res.status(400).send({ fn: 'addFav', status: 'failure' }).end();
         });
@@ -78,6 +79,17 @@ export class SecurityController {
         .then((results) => res.send({fn: 'getFavorites', status: 'success', data: results.favorites}).end()) 
         .catch((reason) => res.status(500).send(reason).end()); 
 
+    }
+
+    deleteFavorite(req: express.Request, res: express.Response, next: express.NextFunction){
+        const email = req.params.email;
+        const id = req.params.id;
+        SecurityController.db.updateRecord(SecurityController.usersTable, {email : email}, {$pull: {favorites: id} }).then((result:Boolean)=>{ 
+        if (result)
+            res.send({ fn: 'deleteFav', status: 'success' }).end();
+        else 
+            res.status(400).send({ fn: 'deleteFav', status: 'failure' }).end();
+    });
     }
 /*
     deleteFavorite(req: express.Request, res: express.Response, next: express.NextFunction) {
