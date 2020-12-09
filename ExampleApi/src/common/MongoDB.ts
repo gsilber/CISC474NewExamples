@@ -21,10 +21,10 @@ export class Database {
         var url=this.url;
         return new Promise(function(resolve,reject){
             MongoClient.connect(url, function (err, db) {
-                if (err) reject(err);
+                if (err) return reject(err);
                 const dbo = db.db(dbname);
                 dbo.collection(collection).insertOne(object,(err, result) => {
-                    if (err) reject(err);
+                    if (err) return reject(err);
                     db.close();
                     resolve(true);
                 });
@@ -42,10 +42,10 @@ export class Database {
         var url=this.url;
         return new Promise(function(resolve,reject){
             MongoClient.connect(url, function (err, db) {
-                if (err) reject(err);
+                if (err) return reject(err);
                 const dbo = db.db(dbname);
                 dbo.collection(collection).updateOne(filter,update,(err, result) => {
-                    if (err) reject(err);
+                    if (err) return reject(err);
                     db.close();
                     resolve(result.matchedCount==1);
                 });
@@ -63,10 +63,10 @@ export class Database {
         var url=this.url;
         return new Promise(function (resolve, reject) {            
             MongoClient.connect(url, function (err, db) {
-                if (err) reject(err);
+                if (err) return reject(err);
                 const dbo = db.db(dbname);
                 dbo.collection(collection).find(query).toArray((err, result) => {
-                    if (err) reject(err);
+                    if (err) return reject(err);
                     db.close();
                     resolve(result);
                 });
@@ -83,10 +83,10 @@ export class Database {
         var url=this.url;
         return new Promise(function (resolve, reject) {            
             MongoClient.connect(url, function (err, db) {
-                if (err) reject(err);
+                if (err) return reject(err);
                 const dbo = db.db(dbname);
                 dbo.collection(collection).findOne(query, (err, result) => {
-                    if (err) reject(err);
+                    if (err) return reject(err);
                     db.close();
                     resolve(result);
                 });
@@ -103,10 +103,10 @@ export class Database {
         var url=this.url;
         return new Promise(function (resolve, reject) {            
             MongoClient.connect(url, function (err, db) {
-                if (err) reject(err);
+                if (err) return reject(err);
                 const dbo = db.db(dbname);
                 dbo.collection(collection).deleteOne(query, (err, result) => {
-                    if (err) reject(err);
+                    if (err) return reject(err);
                     db.close();
                     resolve(result.deletedCount==1);
                 });
